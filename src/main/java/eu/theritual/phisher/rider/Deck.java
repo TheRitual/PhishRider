@@ -51,6 +51,10 @@ class Deck {
         addCardSide(currentCard, cardSideType, InformationType.TEXT, "Default Value");
     }
 
+    public void addCardSide() {
+        addCardSide(CardSideType.BASIC);
+    }
+
     public void addInformation(int cardNumber, int cardSideNumber, InformationType informationType, String value) {
         cards.get(cardNumber).getSide(cardSideNumber).addInformation(informationType, value);
         currentCard = cardNumber;
@@ -70,6 +74,10 @@ class Deck {
 
     public void addInformation(String value) {
         addInformation(currentSide, InformationType.TEXT, value);
+    }
+
+    public void addInformation() {
+        addInformation("Default Value");
     }
 
     public void changeInformation(int cardNumber, int sideNumber, int informationNumber, InformationType type, String value) {
