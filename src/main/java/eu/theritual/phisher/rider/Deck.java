@@ -122,12 +122,20 @@ public class Deck {
         }
     }
 
+    public String current() {
+        System.out.print("[CARD : " + currentCard + " ] ");
+        System.out.print("[SIDE : " + currentSide + " ] ");
+        System.out.println("[INFORMATION : " + currentInformation + " ] ");
+        return  currentCard + "|" + currentSide + "|" + currentInformation;
+    }
+
     public int getCurrentCard() {
         return currentCard;
     }
 
     public void setCurrentCard(int currentCard) {
         this.currentCard = currentCard;
+        setCurrentSide(0);
     }
 
     public int getCurrentSide() {
@@ -136,6 +144,7 @@ public class Deck {
 
     public void setCurrentSide(int currentSide) {
         this.currentSide = currentSide;
+        setCurrentInformation(0);
     }
 
     public int getCurrentInformation() {

@@ -13,6 +13,26 @@ public class PhishRider {
         deck.setCurrentInformation(2);
         deck.changeInformation("Another Changed Informaton");
 
+        deck.current();
+
+        deck.addBlankCard();
+        deck.addBlankCard();
+        deck.addBlankCard();
+
+        deck.setCurrentCard(1);
+
+        deck.addBlankSide(CardSideType.BASIC);
+        deck.addBlankSide(CardSideType.DOUBLE);
+        deck.addBlankSide(CardSideType.BASIC);
+
+        deck.setCurrentSide(1);
+
+        deck.changeInformation("LOLZ MASTER");
+        deck.addInformation(TEXT,"LOLZ SON");
+        deck.addInformation(TEXT,"LOLZ GRANDSON");
+
+        System.out.println("\n\n");
+
         deck.show();
 
     }
