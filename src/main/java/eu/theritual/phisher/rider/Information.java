@@ -1,6 +1,6 @@
 package eu.theritual.phisher.rider;
 
-class Information {
+public class Information {
     private InformationType type;
     private String value;
 
@@ -9,11 +9,15 @@ class Information {
         this.value = value;
     }
 
-    InformationType getType() {
+    public Information() {
+        //dummy constructor for JACKSON
+    }
+
+    public InformationType getType() {
         return type;
     }
 
-    String getValue() {
+    public String getValue() {
         return value;
     }
 

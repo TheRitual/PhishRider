@@ -1,49 +1,24 @@
 package eu.theritual.phisher.rider;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
+
 import static eu.theritual.phisher.rider.InformationType.*;
 
 public class PhishRiderDeck extends Deck{
     public static void main(String[] args) {
         System.out.println("This is just lib to use with other TheRitual 'Phisher' projects.");
-        Deck deck = new Deck();
 
-        deck.addInformation(TEXT, "Informacja 2");
-        deck.addInformation(TEXT, "Informacja 3");
-        deck.changeInformation(1,"Changed Information");
-        deck.setCurrentInformation(2);
-        deck.changeInformation("Another Changed Informaton");
-
-        System.out.println(deck.current());
-
-        deck.addCard();
-        deck.addCard();
-        deck.addCard();
-
-        deck.setCurrentCard(1);
-
-        deck.addCardSide(CardSideType.BASIC);
-        deck.addCardSide(CardSideType.DOUBLE_TEXT);
-        deck.addCardSide(CardSideType.BASIC);
-
-        deck.setCurrentSide(1);
-
-        deck.changeInformation("LOLZ MASTER");
-        deck.addInformation(TEXT,"LOLZ SON");
-        deck.addInformation(TEXT,"LOLZ GRANDSON");
-
-        deck.changeCardSideType(1,1,CardSideType.DOUBLE_TEXT);
-
-        deck.removeInformation(1,1,1);
-        deck.removeSide(1,2);
-        deck.removeCard(2);
-
-        System.out.println("\n\n");
-
-        deck.addCard(CardSideType.DOUBLE_TEXT, TEXT,"TEXT na nowej karcie");
-        deck.addInformation("Drugi tekst bo to double");
+        Deck deck = Utils.load("test2");
 
         deck.show();
 
+        Utils.save(deck,"test3");
+
     }
+
 
 }

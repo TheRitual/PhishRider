@@ -3,16 +3,20 @@ package eu.theritual.phisher.rider;
 import java.util.ArrayList;
 import java.util.List;
 
-class CardSide {
+public class CardSide {
     private CardSideType type;
     private List<Information> informationList;
 
-    CardSide(CardSideType type) {
+    public CardSide(CardSideType type) {
         informationList = new ArrayList<>();
         this.type = type;
     }
 
-    List<Information> getInformationList() {
+    public CardSide() {
+        //dummy constructor for Jackson
+    }
+
+    public List<Information> getInformationList() {
         return informationList;
     }
 
@@ -28,7 +32,7 @@ class CardSide {
         informationList.add(info);
     }
 
-    CardSideType getType() {
+    public CardSideType getType() {
         return type;
     }
 

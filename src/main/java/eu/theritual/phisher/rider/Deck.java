@@ -1,5 +1,9 @@
 package eu.theritual.phisher.rider;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -214,6 +218,7 @@ class Deck {
     }
     
     public void show() {
+        utl.log("SHOWING DECK");
         int cardn = 0;
         for (Card crd : cards) {
             int siden = 0;
@@ -233,5 +238,15 @@ class Deck {
 
     public void setLog(boolean logOn) {
         this.utl.setLog(logOn);
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+
+
+    public Utils getUtl(){
+        return utl;
     }
 }

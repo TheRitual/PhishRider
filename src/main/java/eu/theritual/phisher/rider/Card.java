@@ -3,10 +3,10 @@ package eu.theritual.phisher.rider;
 import java.util.ArrayList;
 import java.util.List;
 
-class Card {
+public class Card {
     private List<CardSide> sides;
 
-    Card() {
+    public Card() {
         sides = new ArrayList<>();
     }
 
@@ -14,7 +14,7 @@ class Card {
         sides.add(cardSide);
     }
 
-    List<CardSide> getSides() {
+    public List<CardSide> getSides() {
         return sides;
     }
 
