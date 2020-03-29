@@ -11,13 +11,11 @@ import static eu.theritual.phisher.rider.InformationType.*;
 public class PhishRiderDeck extends Deck{
     public static void main(String[] args) {
         System.out.println("This is just lib to use with other TheRitual 'Phisher' projects.");
-
-        Deck deck = Utils.load("test2");
-
-        deck.show();
-
-        Utils.save(deck,"test3");
-
+        if (args.length == 2) {
+            if (args[0].toLowerCase().equals("read")){
+                Utils.load(args[1].toLowerCase()).show();
+            }
+        }
     }
 
 

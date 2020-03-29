@@ -50,7 +50,7 @@ public class Utils {
             mapper.writeValue(Paths.get(fileName + ".json").toFile(), deck);
             deck.getUtl().log("File Saved");
         } catch (IOException e) {
-            e.printStackTrace();
+            Utils.logS(e.toString());
         }
     }
 
@@ -64,7 +64,7 @@ public class Utils {
         } catch (IOException e) {
             Deck dck = new Deck();
             dck.getUtl().log("Could not load file " + fileName);
-            e.printStackTrace();
+            dck.getUtl().log((e.toString()));
             return dck;
         }
     }
