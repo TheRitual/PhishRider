@@ -13,17 +13,17 @@ public class PhishRider {
         deck.setCurrentInformation(2);
         deck.changeInformation("Another Changed Informaton");
 
-        deck.current();
+        System.out.println(deck.current());
 
-        deck.addBlankCard();
-        deck.addBlankCard();
-        deck.addBlankCard();
+        deck.addCard();
+        deck.addCard();
+        deck.addCard();
 
         deck.setCurrentCard(1);
 
-        deck.addBlankSide(CardSideType.BASIC);
-        deck.addBlankSide(CardSideType.DOUBLE);
-        deck.addBlankSide(CardSideType.BASIC);
+        deck.addCardSide(CardSideType.BASIC);
+        deck.addCardSide(CardSideType.DOUBLE);
+        deck.addCardSide(CardSideType.BASIC);
 
         deck.setCurrentSide(1);
 

@@ -7,39 +7,40 @@ public class Deck {
     private boolean firstCard = true, firstSide = true, firstInformation = true;
     private int currentCard = 0, currentSide = 0, currentInformation = 0;
     private List<Card> cards;
+    private Utils utl = new Utils(true);
 
     public Deck() {
         cards = new ArrayList<>();
-        Utils.logS("Created new Deck as ArrayList of Cards");
-        addBlankCard();
+        utl.log("Created new Deck as ArrayList of Cards");
+        addCard();
     }
 
-    public void addBlankCard() {
+    public void addCard() {
         cards.add(new Card());
         if(!firstCard) {currentCard++; firstSide = true;} else { firstCard = false; }
         currentSide = 0;
-        Utils.logS("Added Card with number " + currentCard + " to Deck");
-        addBlankSide(CardSideType.BASIC);
+        utl.log("Added Card with number " + currentCard + " to Deck");
+        addCardSide(CardSideType.BASIC);
     }
 
-    public void addBlankSide(CardSideType type) {
+    public void addCardSide(CardSideType type) {
         cards.get(currentCard).addSide(new CardSide(type));
         if(!firstSide) {currentSide++; firstInformation = true;} else { firstSide = false; }
         currentInformation = 0;
-        Utils.logS("Added Blank Side of type (" + type + ") to Card " + currentCard);
+        utl.log("Added Blank Side of type (" + type + ") to Card " + currentCard);
         addInformation(InformationType.TEXT, "");
     }
 
     public void addInformation(InformationType type, String value) {
         cards.get(currentCard).getSide(currentSide).addInformation(type, value);
         if(!firstInformation) {currentInformation++;} else { firstInformation = false; }
-        Utils.logS("Added Information of type (" + type + ") to side " + currentSide + " of card " + currentCard + " with value {" + value + "}");
+        utl.log("Added Information of type (" + type + ") to side " + currentSide + " of card " + currentCard + " with value {" + value + "}");
     }
 
     public void changeInformation(int cardNumber, int sideNumber, int informationNumber, InformationType type, String value) {
         InformationType oldType = cards.get(cardNumber).getSide(sideNumber).getInformation(informationNumber).getType();
         String oldValue = cards.get(cardNumber).getSide(sideNumber).getInformation(informationNumber).getValue();
-        Utils.logS("Changed information from card " + cardNumber + " on side " + sideNumber +
+        utl.log("Changed information from card " + cardNumber + " on side " + sideNumber +
                 " from TYPE (" + oldType + ") and VALUE {" + oldValue + "}" +
                 " to TYPE (" + type + ") and VALUE {" + value + "}");
         cards.get(cardNumber).getSide(sideNumber).getInformation(informationNumber).setInformation(type, value);
@@ -107,19 +108,6 @@ public class Deck {
 
     public void changeCardSide(CardSideType type) {
         changeCardSideType(currentSide, type);
-    }
-
-    List<Card> getCards() {
-        return cards;
-    }
-
-    Card getCard(int number) {
-        try {
-            return cards.get(number);
-        } catch (IndexOutOfBoundsException e) {
-            Utils.logS("WRONG CARD INDEX " + number);
-            return null;
-        }
     }
 
     public String current() {
