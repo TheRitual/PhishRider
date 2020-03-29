@@ -36,6 +36,79 @@ public class Deck {
         Utils.logS("Added Information of type (" + type + ") to side " + currentSide + " of card " + currentCard + " with value {" + value + "}");
     }
 
+    public void changeInformation(int cardNumber, int sideNumber, int informationNumber, InformationType type, String value) {
+        InformationType oldType = cards.get(cardNumber).getSide(sideNumber).getInformation(informationNumber).getType();
+        String oldValue = cards.get(cardNumber).getSide(sideNumber).getInformation(informationNumber).getValue();
+        Utils.logS("Changed information from card " + cardNumber + " on side " + sideNumber +
+                " from TYPE (" + oldType + ") and VALUE {" + oldValue + "}" +
+                " to TYPE (" + type + ") and VALUE {" + value + "}");
+        cards.get(cardNumber).getSide(sideNumber).getInformation(informationNumber).setInformation(type, value);
+    }
+
+    public void changeInformation(int sideNumber, int informationNumber, InformationType type, String value) {
+        changeInformation(currentCard, sideNumber, informationNumber, type, value);
+    }
+
+    public void changeInformation(int informationNumber, InformationType type, String value) {
+        changeInformation(currentCard, currentSide, informationNumber, type, value);
+    }
+
+    public void changeInformation(InformationType type, String value) {
+        changeInformation(currentCard, currentSide, currentInformation, type, value);
+    }
+
+    public void changeInformation(int informationNumber, String value) {
+        InformationType oldType = cards.get(currentCard).getSide(currentSide).getInformation(currentInformation).getType();
+        changeInformation(currentCard, currentSide, informationNumber, oldType, value);
+    }
+
+    public void changeInformation(InformationType type) {
+        String oldValue = cards.get(currentCard).getSide(currentSide).getInformation(currentInformation).getValue();
+        changeInformation(currentCard, currentSide, currentInformation, type, oldValue);
+    }
+
+    public void changeInformation(String value) {
+        InformationType oldType = cards.get(currentCard).getSide(currentSide).getInformation(currentInformation).getType();
+        changeInformation(currentCard, currentSide, currentInformation, oldType, value);
+    }
+
+    public void changeInformation(int informationNumber, InformationType type) {
+        String oldValue = cards.get(currentCard).getSide(currentSide).getInformation(currentInformation).getValue();
+        changeInformation(currentCard, currentSide, informationNumber, type, oldValue);
+    }
+
+    public void changeInformation(int sideNumber, int informationNumber, String value) {
+        InformationType oldType = cards.get(currentCard).getSide(currentSide).getInformation(currentInformation).getType();
+        changeInformation(currentCard, sideNumber, informationNumber, oldType, value);
+    }
+
+    public void changeInformation(int sideNumber, int informationNumber, InformationType type) {
+        String oldValue = cards.get(currentCard).getSide(currentSide).getInformation(currentInformation).getValue();
+        changeInformation(currentCard, sideNumber, informationNumber, type, oldValue);
+    }
+
+    public void changeInformation(int cardNumber, int sideNumber, int informationNumber, String value) {
+        InformationType oldType = cards.get(currentCard).getSide(currentSide).getInformation(currentInformation).getType();
+        changeInformation(cardNumber, sideNumber, informationNumber, oldType, value);
+    }
+
+    public void changeInformation(int cardNumber, int sideNumber, int informationNumber, InformationType type) {
+        String oldValue = cards.get(currentCard).getSide(currentSide).getInformation(currentInformation).getValue();
+        changeInformation(cardNumber, sideNumber, informationNumber, type, oldValue);
+    }
+
+    public void changeCardSideType(int cardNumber, int sideNumber, CardSideType type) {
+        cards.get(cardNumber).getSide(sideNumber).setType(type);
+    }
+
+    public void changeCardSideType(int number, CardSideType type) {
+        cards.get(currentCard).getSide(number).setType(type);
+    }
+
+    public void changeCardSide(CardSideType type) {
+        changeCardSideType(currentSide, type);
+    }
+
     List<Card> getCards() {
         return cards;
     }
@@ -46,6 +119,48 @@ public class Deck {
         } catch (IndexOutOfBoundsException e) {
             Utils.logS("WRONG CARD INDEX " + number);
             return null;
+        }
+    }
+
+    public int getCurrentCard() {
+        return currentCard;
+    }
+
+    public void setCurrentCard(int currentCard) {
+        this.currentCard = currentCard;
+    }
+
+    public int getCurrentSide() {
+        return currentSide;
+    }
+
+    public void setCurrentSide(int currentSide) {
+        this.currentSide = currentSide;
+    }
+
+    public int getCurrentInformation() {
+        return currentInformation;
+    }
+
+    public void setCurrentInformation(int currentInformation) {
+        this.currentInformation = currentInformation;
+    }
+    
+    public void show() {
+        int cardn = 0;
+        for (Card crd : cards) {
+            int siden = 0;
+            System.out.println("CARD[" + cardn + "] :::");
+            for (CardSide side : crd.getSides()) {
+                System.out.println("\t SIDE[" + siden + "] (" + side.getType() + ") :::");
+                int infon = 0;
+                for (Information info : side.getInformationList()) {
+                    System.out.println("\t\t info[" + infon + "] (" + info.getType() + ") {" + info.getValue() + "}");
+                    infon++;
+                }
+                siden++;
+            }
+            cardn++;
         }
     }
 }

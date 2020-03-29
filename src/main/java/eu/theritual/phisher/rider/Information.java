@@ -13,7 +13,12 @@ class Information {
         return type;
     }
 
-    String getInfo() {
+    String getValue() {
         return value;
+    }
+
+    void setInformation(InformationType type, String  value) {
+        this.type = type;
+        this.value = value;
     }
 }

@@ -16,6 +16,10 @@ class CardSide {
         return informationList;
     }
 
+    Information getInformation(int number) {
+        return informationList.get(number);
+    }
+
     void addInformation(InformationType type, String value) {
         informationList.add(new Information(type,value));
     }
@@ -24,4 +28,7 @@ class CardSide {
         return type;
     }
 
+    public void setType(CardSideType type) {
+        this.type = type;
+    }
 }
