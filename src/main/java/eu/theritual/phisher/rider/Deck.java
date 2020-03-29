@@ -3,7 +3,7 @@ package eu.theritual.phisher.rider;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Deck {
+class Deck {
     private boolean firstCard = true, firstSide = true, firstInformation = true;
     private int currentCard = 0, currentSide = 0, currentInformation = 0;
     private List<Card> cards;
@@ -15,26 +15,61 @@ public class Deck {
         addCard();
     }
 
+
     public void addCard() {
-        cards.add(new Card());
-        if(!firstCard) {currentCard++; firstSide = true;} else { firstCard = false; }
+        addCard(CardSideType.BASIC,InformationType.TEXT,"Default Value");
+    }
+    public void addCard(CardSideType cardSideType, InformationType infoType, String value) {
+        Information newInfo = new Information(infoType, value);
+        CardSide newCardSide = new CardSide(cardSideType);
+        Card newCard = new Card();
+        newCardSide.addInformation(newInfo);
+        newCard.addSide(newCardSide);
+        cards.add(newCard);
+        currentCard = cards.size()-1;
         currentSide = 0;
-        utl.log("Added Card with number " + currentCard + " to Deck");
-        addCardSide(CardSideType.BASIC);
-    }
-
-    public void addCardSide(CardSideType type) {
-        cards.get(currentCard).addSide(new CardSide(type));
-        if(!firstSide) {currentSide++; firstInformation = true;} else { firstSide = false; }
         currentInformation = 0;
-        utl.log("Added Blank Side of type (" + type + ") to Card " + currentCard);
-        addInformation(InformationType.TEXT, "");
+        utl.log("Added new Card with number [" + currentCard + "] with new CardSide (" + cardSideType + ") and information of type (" + infoType + ") value {" + value + "}");
     }
 
-    public void addInformation(InformationType type, String value) {
-        cards.get(currentCard).getSide(currentSide).addInformation(type, value);
-        if(!firstInformation) {currentInformation++;} else { firstInformation = false; }
-        utl.log("Added Information of type (" + type + ") to side " + currentSide + " of card " + currentCard + " with value {" + value + "}");
+    public void addCardSide(int cardNumber, CardSideType cardSideType, InformationType infoType, String value) {
+        Information newInfo = new Information(infoType, value);
+        CardSide newCardSide = new CardSide(cardSideType);
+        newCardSide.addInformation(newInfo);
+        cards.get(cardNumber).addSide(newCardSide);
+        currentCard = cardNumber;
+        currentSide = cards.get(cardNumber).getSides().size()-1;
+        currentInformation = 0;
+        utl.log("Added new CardSide to Card number [" + currentCard + "]. New CardSide [" + currentSide + "] is of type (" + cardSideType + ") and information of type (" + infoType + ") with value {" + value + "}");
+    }
+
+    public void addCardSide(CardSideType cardSideType, InformationType informationType, String value) {
+        addCardSide(currentCard, cardSideType, informationType, value);
+    }
+
+    public void addCardSide(CardSideType cardSideType) {
+        addCardSide(currentCard, cardSideType, InformationType.TEXT, "Default Value");
+    }
+
+    public void addInformation(int cardNumber, int cardSideNumber, InformationType informationType, String value) {
+        cards.get(cardNumber).getSide(cardSideNumber).addInformation(informationType, value);
+        currentCard = cardNumber;
+        currentSide = cardSideNumber;
+        currentInformation = cards.get(cardNumber).getSide(cardSideNumber).getInformationList().size()-1;
+        CardSideType cardSideType = cards.get(cardNumber).getSide(cardSideNumber).getType();
+        utl.log("Added new Information to Card number [" + currentCard + "], CardSide number [" + currentSide + "] with type (" + cardSideType + ") and information of type (" + informationType + ") with value {" + value + "}");
+    }
+
+    public void addInformation(int cardSideNumber, InformationType informationType, String value) {
+        addInformation(currentCard, cardSideNumber, informationType, value);
+    }
+
+    public void addInformation(InformationType informationType, String value) {
+        addInformation(currentSide, informationType, value);
+    }
+
+    public void addInformation(String value) {
+        addInformation(currentSide, InformationType.TEXT, value);
     }
 
     public void changeInformation(int cardNumber, int sideNumber, int informationNumber, InformationType type, String value) {
@@ -99,21 +134,48 @@ public class Deck {
     }
 
     public void changeCardSideType(int cardNumber, int sideNumber, CardSideType type) {
+        CardSideType oldType = cards.get(cardNumber).getSide(sideNumber).getType();
+        utl.log("Changed CardSideType from card " + cardNumber + " on side " + sideNumber +
+                "from TYPE (" + oldType + ") to TYPE (" + type + ")");
         cards.get(cardNumber).getSide(sideNumber).setType(type);
     }
 
-    public void changeCardSideType(int number, CardSideType type) {
-        cards.get(currentCard).getSide(number).setType(type);
+    public void changeCardSideType(int sideNumber, CardSideType type) {
+        cards.get(currentCard).getSide(sideNumber).setType(type);
     }
 
     public void changeCardSide(CardSideType type) {
         changeCardSideType(currentSide, type);
     }
 
+    public void removeInformation(int cardNumber, int sideNumber, int informationNumber) {
+        cards.get(cardNumber).getSide(sideNumber).getInformationList().remove(informationNumber);
+    }
+
+    public void removeInformation(int sideNumber, int infortmationNumber) {
+        removeInformation(currentCard, sideNumber, infortmationNumber);
+    }
+
+    public void removeInformation(int informationNumber) {
+        removeInformation(currentSide, informationNumber);
+    }
+
+    public void removeSide(int cardNumber, int sideNumber) {
+        cards.get(cardNumber).getSides().remove(sideNumber);
+    }
+
+    public void removeSide(int sideNumber) {
+        removeSide(currentCard, sideNumber);
+    }
+
+    public void removeCard(int cardNumber) {
+        cards.remove(cardNumber);
+    }
+
     public String current() {
-        System.out.print("[CARD : " + currentCard + " ] ");
-        System.out.print("[SIDE : " + currentSide + " ] ");
-        System.out.println("[INFORMATION : " + currentInformation + " ] ");
+        utl.log("[CARD : " + currentCard + " ] ");
+        utl.log("[SIDE : " + currentSide + " ] ");
+        utl.log("[INFORMATION : " + currentInformation + " ] ");
         return  currentCard + "|" + currentSide + "|" + currentInformation;
     }
 
@@ -147,17 +209,21 @@ public class Deck {
         int cardn = 0;
         for (Card crd : cards) {
             int siden = 0;
-            System.out.println("CARD[" + cardn + "] :::");
+            utl.log("CARD[" + cardn + "] :::");
             for (CardSide side : crd.getSides()) {
-                System.out.println("\t SIDE[" + siden + "] (" + side.getType() + ") :::");
+                utl.log("\t SIDE[" + siden + "] (" + side.getType() + ") :::");
                 int infon = 0;
                 for (Information info : side.getInformationList()) {
-                    System.out.println("\t\t info[" + infon + "] (" + info.getType() + ") {" + info.getValue() + "}");
+                    utl.log("\t\t info[" + infon + "] (" + info.getType() + ") {" + info.getValue() + "}");
                     infon++;
                 }
                 siden++;
             }
             cardn++;
         }
+    }
+
+    public void setLog(boolean logOn) {
+        this.utl.setLog(logOn);
     }
 }

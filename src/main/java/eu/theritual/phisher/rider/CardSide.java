@@ -24,6 +24,10 @@ class CardSide {
         informationList.add(new Information(type,value));
     }
 
+    void addInformation(Information info) {
+        informationList.add(info);
+    }
+
     CardSideType getType() {
         return type;
     }
