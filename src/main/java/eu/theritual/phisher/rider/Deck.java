@@ -12,8 +12,9 @@ public class Deck {
         cards = new ArrayList<>();
     }
 
-    public void addCard(CardType type, String vlues) {
-        utl.log("Adding a card to a deck");
+    public void addCard() {
 
     }
+
+
 }

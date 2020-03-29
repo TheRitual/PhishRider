@@ -7,4 +7,8 @@ class CardSide {
     public CardSide(List<Information> informationList) {
         this.informationList = informationList;
     }
+
+    public List<Information> getInformationList() {
+        return informationList;
+    }
 }
