@@ -1,14 +1,27 @@
 package eu.theritual.phisher.rider;
 
+import java.util.ArrayList;
 import java.util.List;
 
 class CardSide {
+    private CardSideType type;
     private List<Information> informationList;
-    public CardSide(List<Information> informationList) {
-        this.informationList = informationList;
+
+    CardSide(CardSideType type) {
+        informationList = new ArrayList<>();
+        this.type = type;
     }
 
-    public List<Information> getInformationList() {
+    List<Information> getInformationList() {
         return informationList;
     }
+
+    void addInformation(InformationType type, String value) {
+        informationList.add(new Information(type,value));
+    }
+
+    CardSideType getType() {
+        return type;
+    }
+
 }

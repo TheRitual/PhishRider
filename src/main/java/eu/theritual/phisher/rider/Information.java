@@ -9,7 +9,11 @@ class Information {
         this.value = value;
     }
 
-    public String getInfo() {
+    InformationType getType() {
+        return type;
+    }
+
+    String getInfo() {
         return value;
     }
 }
